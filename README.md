@@ -10,9 +10,9 @@ They have provided you with a mock-up of the user interface to use in the design
 The organization also has specific business requirements that must be included as part of the application. A system analyst from your company created the solution statements outlined in the requirements section based on the manufacturing organization’s business requirements. You will use these solution statements to develop your application.
 
 #Objectives
+
+
 I. User Interface
-
-
 
 Create a C# application with a graphical user interface (GUI) based on the attached “GUI Mock-Up.” Write code to display each of the following forms in the GUI:
 
