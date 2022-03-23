@@ -1,0 +1,130 @@
+﻿<Window x:Class="InventorySystem.Views.AddEditPart"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:helpers="clr-namespace:InventorySystem.Services"
+        xmlns:local="clr-namespace:InventorySystem.Views"
+        mc:Ignorable="d"
+        d:DesignHeight="425"
+        d:DesignWidth="400"
+        Title="Part" Height="425" Width="400" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+    <Window.Resources>
+        <helpers:CheckLabelTextConverter x:Key="CheckLabelTextConverter" />
+        <helpers:CheckAddEditPartLabelConverter x:Key="CheckAddEditLabelText" />
+    </Window.Resources>
+    <StackPanel >
+        <Grid Height="35">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="75" />
+                <ColumnDefinition Width="75" />
+            </Grid.ColumnDefinitions>
+            <Label Content="{Binding IsNewPart, Converter={StaticResource CheckAddEditLabelText}, FallbackValue='Add Part'}"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" />
+            <RadioButton Content="In-House" IsChecked="True" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <RadioButton Content="Outsourced" IsChecked="{Binding IsOutsourced}" Grid.Column="2"  HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        </Grid>
+        <Grid Margin="0,10,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="125" />
+                <ColumnDefinition Width="135" />
+                <ColumnDefinition Width="100" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+            <Label Content="Part ID" Style="{StaticResource TextBoxLabelStyle}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,5,0"/>
+            <TextBox Text="{Binding PartId}" IsReadOnly="True" IsEnabled="False" Name="PartIdTextBox" TextWrapping="Wrap"
+                     Width="50" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,4,0,0"/>
+
+            <Label Content="Name" Style="{StaticResource TextBoxLabelStyle}" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,5,0"/>
+            <TextBox 
+                Validation.ErrorTemplate="{StaticResource validationErrorTemplate}"
+                Style="{StaticResource ErrorTextBoxStyle}"
+                Name="NameTextBox" Width="125" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,4,0,0">
+                <TextBox.Text>
+                    <Binding
+                        Path="PartName" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"
+                        ValidatesOnNotifyDataErrors="True" ValidatesOnDataErrors="True">
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <Label Content="Inventory" Style="{StaticResource TextBoxLabelStyle}" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,5,0"/>
+            <TextBox 
+                Validation.ErrorTemplate="{StaticResource validationErrorTemplate}"
+                Style="{StaticResource ErrorTextBoxStyle}"
+                Name="InventoryTextBox" Width="50" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,4,0,0">
+                <TextBox.Text>
+                    <Binding
+                        Path="PartCount" UpdateSourceTrigger="PropertyChanged"
+                        ValidatesOnNotifyDataErrors="True" ValidatesOnDataErrors="True">
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <Label Content="Price/Cost" Style="{StaticResource TextBoxLabelStyle}" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,5,0"/>
+            <TextBox
+                Validation.ErrorTemplate="{StaticResource validationErrorTemplate}"
+                Style="{StaticResource ErrorTextBoxStyle}"
+                Name="PriceTextBox" Width="50" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,4,0,0">
+                <TextBox.Text>
+                    <Binding
+                        Path="PartCost" UpdateSourceTrigger="PropertyChanged"
+                        ValidatesOnNotifyDataErrors="True" ValidatesOnDataErrors="True">
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <Label Content="Max" Style="{StaticResource TextBoxLabelStyle}" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,5,0"/>
+            <TextBox
+                Validation.ErrorTemplate="{StaticResource validationErrorTemplate}"
+                Style="{StaticResource ErrorTextBoxStyle}"
+                Name="MaxTextBox" Width="50" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,4,0,0">
+                <TextBox.Text>
+                    <Binding
+                        Path="PartMax" UpdateSourceTrigger="PropertyChanged"
+                        ValidatesOnNotifyDataErrors="True" ValidatesOnDataErrors="True">
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <Label Content="Min" Style="{StaticResource TextBoxLabelStyle}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,5,0"/>
+            <TextBox 
+                Validation.ErrorTemplate="{StaticResource validationErrorTemplate}"
+                Style="{StaticResource ErrorTextBoxStyle}"
+                Name="MinTextBox" Width="50" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,4,0,0">
+                <TextBox.Text>
+                    <Binding
+                        Path="PartMin" UpdateSourceTrigger="PropertyChanged"
+                        ValidatesOnNotifyDataErrors="True" ValidatesOnDataErrors="True">
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <Label Content="{Binding IsOutsourced, Converter={StaticResource CheckLabelTextConverter}, FallbackValue='Company Name'}"
+                   Style="{StaticResource TextBoxLabelStyle}" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,5,0"/>
+            <TextBox
+                Validation.ErrorTemplate="{StaticResource validationErrorTemplate}"
+                Style="{StaticResource ErrorTextBoxStyle}"
+                Name="VariableTextBox" Width="125" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,4,0,0">
+                <TextBox.Text>
+                    <Binding
+                        Path="PartVariableValue" UpdateSourceTrigger="PropertyChanged"
+                        ValidatesOnNotifyDataErrors="True" ValidatesOnDataErrors="True">
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+        </Grid>
+        <Grid Height="45">
+            <Button Content="Save" Click="SaveButton_Click" Name="SaveButton" HorizontalAlignment="Right" VerticalAlignment="Center" Width="75" Margin="0,0,95,0"/>
+            <Button Content="Cancel" Click="CancelButton_Click" Name="CancelButton" HorizontalAlignment="Right" VerticalAlignment="Center" Width="75" Margin="0,0,10,0"/>
+        </Grid>
+    </StackPanel>
+</Window>
